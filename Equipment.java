@@ -6,6 +6,9 @@ public abstract class Equipment {
         this.EquipmentId = EquipmentId;
         this.Cost = Cost;
     }
+    String getEquipmentId() {
+        return EquipmentId;
+    }
     void EquipmentDetails(){
         System.out.println("Equipment Id: " + EquipmentId);
         System.out.println("Cost: " + Cost);

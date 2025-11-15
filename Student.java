@@ -15,6 +15,9 @@ abstract class Student {
         StudentsCount++;
 
     }
+
+
+
     void StudentDetails(){
         System.out.println("Student ID: " + this.StudentID);
         System.out.println("Student Name: " + this.StudentName);
