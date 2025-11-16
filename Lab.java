@@ -3,15 +3,18 @@ public class Lab {
     String LabId;
     String LabName;
     String InchargeId;
-
+    ArrayList <LabEquipment> Equipments;
+    ClassEquipment ClassEquipment;
     String EquipmentId;
-    ArrayList<String> EquipmentIds;
 
-    Lab(String LabId, String LabName, String InchargeId, ArrayList<String> EquipmentIds ) {
+
+    Lab(String LabId, String LabName, String InchargeId,ClassEquipment ClassEquipment) {
 
         this.LabId = LabId;
         this.LabName = LabName;
         this.InchargeId = InchargeId;
-        this.EquipmentIds = EquipmentIds;
+        this.ClassEquipment = ClassEquipment;
+        ArrayList <LabEquipment> Equipments = new ArrayList<>();
+
     }
 }

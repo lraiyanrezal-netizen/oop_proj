@@ -19,8 +19,6 @@ public class Auditorium {
             this.EventTime = EventTime;
 
         }
-
-
     }
     public void EventDetails() {
         System.out.println("Event Details");
