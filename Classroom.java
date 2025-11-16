@@ -14,6 +14,10 @@ public class Classroom {
 
     }
 
+    String getClassId() {
+        return ClassId;
+    }
+
 
 
 

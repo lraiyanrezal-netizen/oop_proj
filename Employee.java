@@ -10,6 +10,9 @@ public abstract class Employee {
         this.Salary = Salary;
         this.DepartmentId = DepartmentId;
     }
+    String getEmployeeId() {
+        return EmployeeId;
+    }
     void EmployeeDetails(){
         System.out.println("Employee Details:");
         System.out.println("Employee Id: " + EmployeeId);

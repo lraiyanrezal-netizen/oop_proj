@@ -5,6 +5,10 @@ abstract class Student {
     int Section;
     String BusId;
     static int StudentsCount;
+    Student(String StudentID){
+        this.StudentID = StudentID;
+        StudentsCount++;
+    }
 
     Student(String studentID, String studentName, String classId, int section, String busId) {
         StudentID = studentID;
@@ -14,6 +18,10 @@ abstract class Student {
         BusId = busId;
         StudentsCount++;
 
+    }
+
+    String getStudentId() {
+        return StudentID;
     }
 
 
@@ -36,12 +44,18 @@ class PrimaryStudent extends Student {
         super(studentID, studentName, classId, section, busId);
 
     }
+    PrimaryStudent(String studentID) {
+        super(studentID);
+    }
 
 
 }
 class HigherSecondaryStudent extends Student {
     HigherSecondaryStudent(String studentID, String studentName, String classId, int section, String busId) {
         super(studentID, studentName, classId, section, busId);
+    }
+    HigherSecondaryStudent(String studentID) {
+        super(studentID);
     }
 
 }
