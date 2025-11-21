@@ -1,8 +1,13 @@
+import java.util.ArrayList;
+
 public abstract class Employee {
     String EmployeeId;
     String EmployeeName;
     double Salary;
     String DepartmentId;
+
+    ArrayList<Teacher>Teachers;
+    ArrayList<SupportStaff>SupportStaff;
 
     Employee(String EmployeeId, String EmployeeName, double Salary, String DepartmentId) {
         this.EmployeeId = EmployeeId;
@@ -13,13 +18,7 @@ public abstract class Employee {
     String getEmployeeId() {
         return EmployeeId;
     }
-    void EmployeeDetails(){
-        System.out.println("Employee Details:");
-        System.out.println("Employee Id: " + EmployeeId);
-        System.out.println("Employee Name: " + EmployeeName);
-        System.out.println("Employee Salary: " + Salary);
-        System.out.println("Employee Department: " + DepartmentId);
-    }
+    abstract void EmployeeDetails();
     void CheckIn(){
         System.out.println(this.EmployeeName + " is checking in.");
     }
@@ -32,6 +31,18 @@ public abstract class Employee {
 class Teacher extends Employee {
     Teacher(String EmployeeId, String EmployeeName, double Salary, String DepartmentId) {
         super(EmployeeId, EmployeeName, Salary, DepartmentId);
+        Teachers = new ArrayList<>();
+        Teachers.add(this);
+    }
+
+    public void EmployeeDetails(){
+
+        System.out.println("Teacher Details:");
+        System.out.println("Employee ID: " + EmployeeId);
+        System.out.println("Employee Name: " + EmployeeName);
+        System.out.println("Salary: " + Salary);
+        System.out.println("Department ID: " + DepartmentId);
+
     }
 }
 
@@ -40,6 +51,19 @@ class Teacher extends Employee {
 class SupportStaff extends Employee {
     SupportStaff(String EmployeeId, String EmployeeName, double Salary, String DepartmentId) {
         super(EmployeeId, EmployeeName, Salary, DepartmentId);
+
+        SupportStaff = new ArrayList<>();
+        SupportStaff.add(this);
+    }
+
+    public void EmployeeDetails(){
+
+        System.out.println("Support Staff Details:");
+        System.out.println("Employee ID: " + EmployeeId);
+        System.out.println("Employee Name: " + EmployeeName);
+        System.out.println("Salary: " + Salary);
+        System.out.println("Department ID: " + DepartmentId);
+
     }
 
 }

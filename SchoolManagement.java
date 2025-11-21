@@ -272,9 +272,6 @@ public class SchoolManagement {
                 CurrentMenu = "main";
             }
 
-
-
-
         }
     }
     private Student findStudentById(String id) {

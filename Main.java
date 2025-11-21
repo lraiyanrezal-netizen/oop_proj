@@ -42,8 +42,8 @@ public class Main {
                 int CountOfStudent = user.nextInt();
                 user.nextLine();
 
-                String EquipmentId = "E" + (i + 1);
-                System.out.println("Enter the count of bench:");
+
+                System.out.println("Enter the count of bench: ");
                 int CountOfBenchmark = user.nextInt();
                 user.nextLine();
                 System.out.println("Enter the count of fan:");
@@ -53,7 +53,7 @@ public class Main {
                 int CountOfLight = user.nextInt();
                 user.nextLine();
 
-                Classroom Classroom = new Classroom(ClassName, ClassId, CountOfStudent, EquipmentId);
+                Classroom Classroom = new Classroom(ClassName, ClassId, CountOfStudent, new ClassEquipment(ClassId,CountOfBenchmark,CountOfFan,CountOfLight));
                 classrooms.add(Classroom);
             }
 
@@ -78,7 +78,7 @@ public class Main {
 
 
 
-            /*ArrayList<LabEquipment> labEquipmentsList = new ArrayList<>();
+            ArrayList<LabEquipment> labEquipmentsList = new ArrayList<>();
             for(int j = 0 ; j < CountOfEquipments ; j++){
                 String EquipmentId = "E" + (j+1);
                 System.out.println("Enter the name of the Equipment :");
@@ -92,7 +92,7 @@ public class Main {
 
 
                 labEquipmentsList.add(new LabEquipment(EquipName,CountOfEquipment, EquipmentId,CostOfEquipment ));
-            }*/
+            }
 
 
                 System.out.println("Enter the count of bench:");
@@ -105,11 +105,9 @@ public class Main {
                 int CountOfLight1 = user.nextInt();
                 user.nextLine();
 
-                //ClassEquipment classEquipment1 = new ClassEquipment(LabId, CountOfBenchmark1, CountOfFan1, CountOfLight1);
 
-
-                //Lab lab = new Lab(LabId, LabName, InchargeID, new ClassEquipment(LabId, CountOfBenchmark1, CountOfFan1, CountOfLight1));
-                //Labs.add(lab);
+                Lab lab = new Lab(LabId, LabName, InchargeID, labEquipmentsList, new ClassEquipment(LabId, CountOfBenchmark1, CountOfFan1, CountOfLight1));
+                Labs.add(lab);
 
 
 

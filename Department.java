@@ -6,11 +6,11 @@ public class Department {
     String InchargeName;
     ArrayList<Employee> MemberList;
 
-    public Department(String DepartmentId, String DepartmentName, String InchargeName, ArrayList<Employee> MemberList) {
+    public Department(String DepartmentId, String DepartmentName, String InchargeName) {
         this.DepartmentId = DepartmentId;
         this.DepartmentName = DepartmentName;
         this.InchargeName = InchargeName;
-        this.MemberList = MemberList;
+        ArrayList<Employee> MemberList = new ArrayList<>();
     }
 
     void DepartmentDetails(){
@@ -22,6 +22,10 @@ public class Department {
         for(Employee e: MemberList){
             System.out.println(e);
         }
+    }
+
+    void AddMember(Employee e){
+        MemberList.add(e);
     }
 
 
