@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
-abstract class Student {
+public abstract class Student {
     String StudentID;
     String StudentName;
     String ClassId;
     int Section;
     String BusId;
+    boolean isPaid;
 
     ArrayList<HigherSecondaryStudent> HigherSecondaryStudents;
     ArrayList<PrimaryStudent>PrimaryStudents;
@@ -13,6 +14,7 @@ abstract class Student {
     Student(String StudentID){
         this.StudentID = StudentID;
         StudentsCount++;
+        isPaid = false;
     }
 
     Student(String studentID, String studentName, String classId, int section, String busId) {
@@ -22,6 +24,7 @@ abstract class Student {
         Section = section;
         BusId = busId;
         StudentsCount++;
+        isPaid = false;
 
     }
 
@@ -35,19 +38,21 @@ abstract class Student {
 
     void PayFees(){
         System.out.println(this.StudentName+" Paid fees");
+        isPaid = true;
     }
 
 }
 class PrimaryStudent extends Student {
     PrimaryStudent(String studentID, String studentName, String classId, int section, String busId) {
         super(studentID, studentName, classId, section, busId);
-        PrimaryStudents = new ArrayList<>();
-        PrimaryStudents.add(this);
+
+        isPaid = false;
     }
     PrimaryStudent(String studentID) {
         super(studentID);
-        PrimaryStudents = new ArrayList<>();
-        PrimaryStudents.add(this);
+
+
+        isPaid = false;
 
     }
 
@@ -66,12 +71,12 @@ class HigherSecondaryStudent extends Student {
     HigherSecondaryStudent(String studentID, String studentName, String classId, int section, String busId) {
         super(studentID, studentName, classId, section, busId);
         HigherSecondaryStudents = new ArrayList();
-        HigherSecondaryStudents.add(this);
+        isPaid = false;
     }
     HigherSecondaryStudent(String studentID) {
         super(studentID);
-        HigherSecondaryStudents = new ArrayList();
         HigherSecondaryStudents.add(this);
+        isPaid = false;
     }
     void StudentDetails(){
         System.out.println("Higher Secondary Student details");

@@ -6,6 +6,9 @@ public class SchoolManagement {
     String ContactNumber;
     String MediumOfStudy;
 
+    ArrayList<SupportStaff>SupportStaffs;
+
+    ArrayList <Teacher>Teachers ;
     private Auditorium auditorium;
     private Playground playground;
     private NoticeBoard noticeBoard;
@@ -15,6 +18,14 @@ public class SchoolManagement {
     private ArrayList<Department> departments;
      ArrayList<Bus> buses;
     private ArrayList<Student> students;
+    SchoolManagement(){
+        this.buses = new ArrayList<>();
+        this.students = new ArrayList<>();
+        this.employees = new ArrayList<>();
+        this.classrooms = new ArrayList<>();
+        this.labs = new ArrayList<>();
+        this.departments = new ArrayList<>();
+    }
 
     SchoolManagement(String SchoolName, String Address, String ContactNumber, String MediumOfStudy) {
         this.SchoolName = SchoolName;
@@ -52,21 +63,21 @@ public class SchoolManagement {
                     char c = user.nextLine().charAt(0);
 
 
-                    if (c == 'A') {
+                    if (c == 'A' || c =='a') {
                         CurrentMenu = "Bus";
-                    } else if (c == 'B') {
+                    } else if (c == 'B' || c=='b') {
                         CurrentMenu = "Student";
-                    } else if (c == 'C') {
+                    } else if (c == 'C' || c == 'c') {
                         CurrentMenu = "Employee";
-                    } else if (c == 'D') {
+                    } else if (c == 'D' || c == 'd') {
                         CurrentMenu = "Class";
-                    } else if (c == 'E') {
+                    } else if (c == 'E' || c == 'e') {
                         CurrentMenu = "NoticeBoard";
-                    } else if (c == 'F') {
+                    } else if (c == 'F' || c=='f') {
                         CurrentMenu = "Auditorium";
-                    } else if (c == 'G') {
+                    } else if (c == 'G' || c == 'g') {
                         CurrentMenu = "ShowSchoolDetails";
-                    } else if (c == 'H') {
+                    } else if (c == 'H' || c == 'h') {
                         CurrentMenu = "Exit";
                     } else {
                         CurrentMenu = "None";
@@ -84,13 +95,13 @@ public class SchoolManagement {
                     char c = user.nextLine().charAt(0);
 
 
-                    if (c == 'A') {
+                    if (c == 'A' ||c=='a') {
                         CurrentMenu = "Add Bus";
-                    } else if (c == 'B') {
+                    } else if (c == 'B'||c=='b') {
                         CurrentMenu = "Show bus details";
-                    } else if (c == 'C') {
+                    } else if (c == 'C'||c=='c') {
                         CurrentMenu = "Show Seats";
-                    } else if (c == 'D') {
+                    } else if (c == 'D'||c=='d') {
                         CurrentMenu = "main";
                     }
                 } else if (CurrentMenu.equals("Add Bus")) {
@@ -118,10 +129,10 @@ public class SchoolManagement {
                         System.out.println("is he\nA- Primary\nB- high");
                         char cc = user.nextLine().charAt(0);
 
-                        if (cc == 'A') {
+                        if (cc == 'A' || cc =='a') {
                             StudentList.add(new PrimaryStudent(studentId));
 
-                        } else if (cc == 'B') {
+                        } else if (cc == 'B'||cc =='b') {
                             StudentList.add(new HigherSecondaryStudent(studentId));
                         }
 
@@ -169,18 +180,67 @@ public class SchoolManagement {
                     char c1 = user.nextLine().charAt(0);
 
 
-                    if (c1 == 'A') {
+                    if (c1 == 'A' || c1 =='a') {
                         CurrentMenu = "Add Student";
-                    } else if (c1 == 'B') {
+                    } else if (c1 == 'B' || c1 =='b') {
                         CurrentMenu = "Show Student Details";
-                    } else if (c1 == 'C') {
+                    } else if (c1 == 'C'|| c1=='c') {
                         CurrentMenu = "Pay Fees";
-                    } else if (c1 == 'D') {
+                    } else if (c1 == 'D'|| c1=='d') {
                         CurrentMenu = "main";
                     }
                 } else if (CurrentMenu.equals("Add Student")) {
+                    System.out.println("Please enter Student ID");
+                    String studentId = user.nextLine();
+                    System.out.println("Please enter Student Name");
+                    String studentName = user.nextLine();
+                    System.out.println("Please enter Class ID");
+                    String classId = user.nextLine();
+                    System.out.println("Please enter Section");
+                    int section = user.nextInt();
+                    user.nextLine();
+                    System.out.println("Please enter Bus ID");
+                    String busId = user.nextLine();
+                    while(true) {
+                        System.out.println("Primary Student or Higher(P/H)");
+                        String PoH = user.nextLine();
+                        students = new ArrayList<>();
+                        if(PoH.equalsIgnoreCase("P")) {
+                            Student s = new PrimaryStudent(studentId,studentName,classId,section,busId);
+                            students.add(s);
+                            break;
+                        }else if(PoH.equalsIgnoreCase("H")) {
+                            Student s = new HigherSecondaryStudent(studentId,studentName,classId,section,busId);
+                            students.add(s);
+                            break;
+                        }else {
+                            System.out.println("Invalid Input");
+
+                        }
+                    }
+
+
                 } else if (CurrentMenu.equals("Show Student Details")) {
+                    System.out.println("Please enter Student ID to show student details");
+                    String studentId = user.nextLine();
+                    Student s = findStudentById(studentId);
+
+                    if(s!=null){
+                        s.StudentDetails();
+                    } else{
+                        System.out.println("Student not found");
+                    }
                 } else if (CurrentMenu.equals("Pay Fees")) {
+                    System.out.println("Please enter Student ID to pay fees");
+                    String studentId = user.nextLine();
+                    Student s = findStudentById(studentId);
+                    if(s!=null){
+                        s.PayFees();
+                    }else{
+                        System.out.println("Student not found");
+                    }
+
+
                 } else if (CurrentMenu.equals("Employee")) {
                     System.out.println("---------Employee Menu---------");
                     System.out.println("Choose an option: ");
@@ -191,19 +251,81 @@ public class SchoolManagement {
                     char c1 = user.nextLine().charAt(0);
 
 
-                    if (c1 == 'A') {
+                    if (c1 == 'A' || c1 =='a') {
                         CurrentMenu = "Teacher";
-                    } else if (c1 == 'B') {
+                    } else if (c1 == 'B' || c1 =='b') {
                         CurrentMenu = "Support";
-                    } else if (c1 == 'C') {
+                    } else if (c1 == 'C' || c1 =='c') {
                         CurrentMenu = "main";
                     }
                 } else if (CurrentMenu.equals("Teacher")) {
-                } else if (CurrentMenu.equals("Support")) {
-                } else if (CurrentMenu.equals("Class")) {
+                    System.out.println("---------Teacher Menu---------");
+                    System.out.println("Choose an option: ");
+                    System.out.println("A- Show Teacher Details");
+                    System.out.println("B- Receive Salary");
+                    System.out.println("C- Go Back");
+
+                    char c1 = user.nextLine().charAt(0);
+
+                    if (c1 == 'A' || c1 =='a') {
+                        CurrentMenu = "Show Teacher Details";
+                    }else if (c1 == 'B' || c1 =='b') {
+                        CurrentMenu = "Receive Salary";
+                    }else if (c1 == 'C' || c1 =='c') {
+                        CurrentMenu = "Employee";
+                    }
+
+                } else if (CurrentMenu.equals("Show Teacher Details")) {
+                    System.out.println("Please enter Teacher ID to show teacher details");
+                    String teacherId = user.nextLine();
+                    Employee e = findEmployeeById(teacherId);
+                    if(e!=null){
+                        e.EmployeeDetails();
+                    }else{
+                        System.out.println("Teacher not found");
+                    }
+                }
+                else if (CurrentMenu.equals("Receive Salary")) {
+                    System.out.println("Please enter Employee ID to receive salary");
+                    String empId = user.nextLine();
+                    Employee e = findEmployeeById(empId);
+                    if(e!=null){
+                        e.ReceiveSalary();
+                    }else{
+                        System.out.println("Employee not found");
+                    }
+
+                }
+
+                else if (CurrentMenu.equals("Support")) {
+                    System.out.println("---------Support Menu---------");
+                    System.out.println("Choose an option: ");
+                    System.out.println("A- Show Support Staff Details");
+                    System.out.println("B- Receive Salary");
+                    System.out.println("C- Go Back");
+
+                    char c1 = user.nextLine().charAt(0);
+
+                    if (c1 == 'A' || c1 =='a') {
+                        CurrentMenu = "Show Support Staff Details";
+                    }else if (c1 == 'B' || c1 =='b') {
+                        CurrentMenu = "Receive Salary";
+                    }else if (c1 == 'C' || c1 =='c') {
+                        CurrentMenu = "Employee";
+                    }
+
+                }else if (CurrentMenu.equals("Show Support Staff Details")) {
+                    System.out.println("Please enter Employee ID to show support staff details");
+                    String empId = user.nextLine();
+                    Employee e = findEmployeeById(empId);
+                    if(e!=null){
+                        e.EmployeeDetails();
+                    }
+                }
+                else if (CurrentMenu.equals("Class")) {
                     System.out.println("---------Class Menu---------");
                     System.out.println("Choose an option: ");
-                    System.out.println("A- AddStudent");
+                    System.out.println("A- Add Student");
                     System.out.println("B- Assign Teacher");
                     System.out.println("C- Show Details");
                     System.out.println("D- Go Back");
@@ -211,18 +333,36 @@ public class SchoolManagement {
                     char c1 = user.nextLine().charAt(0);
 
 
-                    if (c1 == 'A') {
+                    if (c1 == 'A' || c1=='a') {
                         CurrentMenu = "Add_Student";
-                    } else if (c1 == 'B') {
+                    } else if (c1 == 'B' || c1=='b') {
                         CurrentMenu = "Assign Teacher";
-                    } else if (c1 == 'C') {
+                    } else if (c1 == 'C' || c1=='c') {
                         CurrentMenu = "Show Details";
-                    } else if (c1 == 'D') {
+                    } else if (c1 == 'D' || c1=='d') {
                         CurrentMenu = "main";
                     }
                 } else if (CurrentMenu.equals("Add_Student")) {
+                    System.out.println("Please enter Student ID to add student");
+                    String studentId = user.nextLine();
+                    Student s = findStudentById(studentId);
+                    System.out.println("Please enter Class ID to add student");
+                    String classId = user.nextLine();
+                    Classroom c = findClassById(classId);
+                    c.addStudent(s);
                 } else if (CurrentMenu.equals("Assign Teacher")) {
+                    System.out.println("Please enter Teacher ID to assign teacher");
+                    String teacherId = user.nextLine();
+                    Teacher t = findTeacherById(teacherId);
+                    System.out.println("Please enter Class ID to assign teacher");
+                    String classId = user.nextLine();
+                    Classroom c = findClassById(classId);
+                    c.AssignTeacher(t);
                 } else if (CurrentMenu.equals("Show Details")) {
+                    System.out.println("Please enter Class ID to Show Details");
+                    String ClassID = user.nextLine();
+                    Classroom C = findClassById(ClassID);
+                    C.ClassDetails();
                 } else if (CurrentMenu.equals("NoticeBoard")) {
                     System.out.println("---------NoticeBoard Menu---------");
                     System.out.println("Choose an option: ");
@@ -231,11 +371,11 @@ public class SchoolManagement {
                     System.out.println("C- Go Back");
                     char c1 = user.nextLine().charAt(0);
 
-                    if (c1 == 'A') {
+                    if (c1 == 'A' || c1=='a') {
                         CurrentMenu = "Display";
-                    } else if (c1 == 'B') {
+                    } else if (c1 == 'B' || c1=='b') {
                         CurrentMenu = "Add Content";
-                    } else if (c1 == 'C') {
+                    } else if (c1 == 'C' || c1=='c') {
                         CurrentMenu = "main";
                     }
 
@@ -250,13 +390,13 @@ public class SchoolManagement {
                     System.out.println("D- Go Back");
                     char c1 = user.nextLine().charAt(0);
 
-                    if (c1 == 'A') {
+                    if (c1 == 'A' || c1=='a') {
                         CurrentMenu = "Book Auditorium";
-                    } else if (c1 == 'B') {
+                    } else if (c1 == 'B' || c1=='b') {
                         CurrentMenu = "Show Event Details";
-                    } else if (c1 == 'C') {
+                    } else if (c1 == 'C' || c1=='c') {
                         CurrentMenu = "Show Seats";
-                    } else if (c1 == 'D') {
+                    } else if (c1 == 'D' || c1=='d') {
                         CurrentMenu = "main";
                     }
                 } else if (CurrentMenu.equals("Book Auditorium")) {
@@ -273,6 +413,7 @@ public class SchoolManagement {
             }
 
         }
+
     }
     private Student findStudentById(String id) {
         for (Student s : students) {
@@ -309,4 +450,21 @@ public class SchoolManagement {
         }
         return null;
     }
+    void SetTeacherList(ArrayList<Teacher>Teachers){
+        this.Teachers = Teachers;
+    }
+    void SetSupList(ArrayList<SupportStaff>SupportStaffs){
+        this.SupportStaffs = SupportStaffs;
+    }
+    Teacher findTeacherById(String id) {
+        for(Teacher t: Teachers){
+            if(t.getEmployeeId().equalsIgnoreCase(id)) {
+                return t;
+            }
+
+        }
+        return null;
+    }
+
+
 }

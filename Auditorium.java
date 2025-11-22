@@ -4,7 +4,7 @@ public class Auditorium {
     String EventName;
     String EventDate;
     String EventTime;
-
+    Auditorium(){}
     Auditorium(int TotalSeats) {
         this.TotalSeats = TotalSeats;
     }

@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 
 public abstract class Employee {
     String EmployeeId;
@@ -6,8 +6,8 @@ public abstract class Employee {
     double Salary;
     String DepartmentId;
 
-    ArrayList<Teacher>Teachers;
-    ArrayList<SupportStaff>SupportStaff;
+    boolean isReceivedSalary = false;
+
 
     Employee(String EmployeeId, String EmployeeName, double Salary, String DepartmentId) {
         this.EmployeeId = EmployeeId;
@@ -24,6 +24,7 @@ public abstract class Employee {
     }
     void ReceiveSalary(){
         System.out.println(this.EmployeeId+ " Received the Salary " + this.Salary);
+        isReceivedSalary = true;
     }
 }
 
@@ -31,8 +32,7 @@ public abstract class Employee {
 class Teacher extends Employee {
     Teacher(String EmployeeId, String EmployeeName, double Salary, String DepartmentId) {
         super(EmployeeId, EmployeeName, Salary, DepartmentId);
-        Teachers = new ArrayList<>();
-        Teachers.add(this);
+
     }
 
     public void EmployeeDetails(){
@@ -52,8 +52,8 @@ class SupportStaff extends Employee {
     SupportStaff(String EmployeeId, String EmployeeName, double Salary, String DepartmentId) {
         super(EmployeeId, EmployeeName, Salary, DepartmentId);
 
-        SupportStaff = new ArrayList<>();
-        SupportStaff.add(this);
+
+
     }
 
     public void EmployeeDetails(){
