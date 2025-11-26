@@ -4,13 +4,13 @@ public class Department {
     String DepartmentId;
     String DepartmentName;
     String InchargeName;
-    ArrayList<Employee> MemberList;
+    ArrayList<Teacher> MemberList;
 
-    public Department(String DepartmentId, String DepartmentName, String InchargeName) {
+    public Department(String DepartmentId, String DepartmentName, String InchargeName, ArrayList<Teacher> MemberList) {
         this.DepartmentId = DepartmentId;
         this.DepartmentName = DepartmentName;
         this.InchargeName = InchargeName;
-        ArrayList<Employee> MemberList = new ArrayList<>();
+        this.MemberList = MemberList;
     }
 
     void DepartmentDetails(){
@@ -19,12 +19,12 @@ public class Department {
         System.out.println("Department Name: " + DepartmentName);
         System.out.println("Incharge Name: " + InchargeName);
         System.out.println("Members List: ");
-        for(Employee e: MemberList){
+        for(Teacher e: MemberList){
             System.out.println(e);
         }
     }
 
-    void AddMember(Employee e){
+    void AddMember(Teacher e){
         MemberList.add(e);
     }
 

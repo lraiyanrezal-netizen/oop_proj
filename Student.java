@@ -3,10 +3,13 @@ import java.util.ArrayList;
 public abstract class Student {
     String StudentID;
     String StudentName;
-    String ClassId;
+    String ClassId; // <----------------------------------------------- Association
     int Section;
-    String BusId;
+    String BusId;// <----------------------------------------------- Association
     boolean isPaid;
+
+    // ------------------------------------------------------------------ Aggregation
+    Teacher Teacher;
 
     ArrayList<HigherSecondaryStudent> HigherSecondaryStudents;
     ArrayList<PrimaryStudent>PrimaryStudents;
