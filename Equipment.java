@@ -6,13 +6,12 @@ public abstract class Equipment {
         this.EquipmentId = EquipmentId;
         this.Cost = Cost;
     }
+
+    public abstract void EquipmentDetails();
     String getEquipmentId() {
         return EquipmentId;
     }
-    void EquipmentDetails(){
-        System.out.println("Equipment Id: " + EquipmentId);
-        System.out.println("Cost: " + Cost);
-    }
+
     void PurchaseEquipment(){
         System.out.println("Equipment: " + EquipmentId + " Purchased with Cost: " + Cost );
     }
@@ -27,6 +26,13 @@ class ClassEquipment extends Equipment {
     private int fanCount;
     private int lightCount;
 
+    public void EquipmentDetails(){
+        System.out.println("Class: " + ClassId);
+        System.out.println("Bench Count: " + benchCount);
+        System.out.println("Fan Count: " + fanCount);
+        System.out.println("Light Count: " + lightCount);
+    }
+
     ClassEquipment(String ClassId, int BenchCount, int FanCount, int LightCount) {
         this.ClassId = ClassId;
         this.benchCount = BenchCount;
@@ -37,6 +43,11 @@ class ClassEquipment extends Equipment {
 class LabEquipment extends Equipment {
     private String EquipmentName;
     private int EquipmentCount;
+
+    public void EquipmentDetails(){
+        System.out.println("Lab: " + EquipmentName);
+        System.out.println("Lab Count: " + EquipmentCount);
+    }
 
     LabEquipment(String EquipmentName, int EquipmentCount,String EquipmentId, double Cost ){
         super(EquipmentId, Cost);

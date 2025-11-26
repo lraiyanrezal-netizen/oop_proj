@@ -4,12 +4,14 @@ public class Auditorium {
     String EventName;
     String EventDate;
     String EventTime;
-
+    Auditorium(){}
     Auditorium(int TotalSeats) {
         this.TotalSeats = TotalSeats;
     }
 
     void BookAuditorium(int SeatsOccupied, String EventName, String EventDate, String EventTime) {
+
+
         if (SeatsOccupied > TotalSeats) {
             System.out.println("The Auditorium seats not enough");
         }else{
@@ -26,6 +28,10 @@ public class Auditorium {
         System.out.println("Date: " + EventDate);
         System.out.println("Time: " + EventTime);
         System.out.println("participants:  " + SeatsOccupied);
+    }
+
+    public void DisplaySeats() {
+        System.out.println("Total Seats: " + TotalSeats);
     }
 
     
