@@ -6,40 +6,39 @@ public class SchoolManagement {
     String ContactNumber;
     String MediumOfStudy;
 
-    ArrayList<SupportStaff>SupportStaffs;
 
-    ArrayList <Teacher>Teachers ;
-    private Auditorium auditorium;
-    private Playground playground;
-    private NoticeBoard noticeBoard;
+    // ------------------------------------------------------------------ Aggregation
     private ArrayList<Employee> employees;
-    private ArrayList<Classroom> classrooms;
-    private ArrayList<Lab> labs;
-    private ArrayList<Department> departments;
-     ArrayList<Bus> buses;
+    ArrayList<SupportStaff>SupportStaffs;
+    ArrayList <Teacher>Teachers ;
+    ArrayList<Bus> buses;
     private ArrayList<Student> students;
+    private Playground playground;
+    // -----------------------------------------------------------Composition
+    private ArrayList<Classroom> classrooms;
+    private Auditorium auditorium;
+    private NoticeBoard noticeBoard;
+    final ArrayList<Department> departments;
+    private ArrayList<Lab> labs;
+
+
     SchoolManagement(){
+        // ------------------------------------------------------------------ Aggregation
         this.buses = new ArrayList<>();
         this.students = new ArrayList<>();
         this.employees = new ArrayList<>();
-        this.classrooms = new ArrayList<>();
+        this.Teachers = new ArrayList<>();
+        this.SupportStaffs = new ArrayList<>();
+        this.playground = new Playground();
+        // -----------------------------------------------------------Composition
         this.labs = new ArrayList<>();
+        this.classrooms = new ArrayList<>();
+        this.auditorium = new Auditorium();
+        this.noticeBoard = new NoticeBoard();
         this.departments = new ArrayList<>();
+
     }
 
-    SchoolManagement(String SchoolName, String Address, String ContactNumber, String MediumOfStudy) {
-        this.SchoolName = SchoolName;
-        this.Address = Address;
-        this.ContactNumber = ContactNumber;
-        this.MediumOfStudy = MediumOfStudy;
-
-        this.buses = new ArrayList<>();
-        this.students = new ArrayList<>();
-        this.employees = new ArrayList<>();
-        this.classrooms = new ArrayList<>();
-        this.labs = new ArrayList<>();
-        this.departments = new ArrayList<>();
-    }
     void RunSchool(){
         boolean b = true;
         String CurrentMenu = "main";
@@ -72,11 +71,11 @@ public class SchoolManagement {
                     } else if (c == 'D' || c == 'd') {
                         CurrentMenu = "Class";
                     } else if (c == 'E' || c == 'e') {
-                        CurrentMenu = "NoticeBoard";
+                        CurrentMenu = "Notice Board";
                     } else if (c == 'F' || c=='f') {
                         CurrentMenu = "Auditorium";
                     } else if (c == 'G' || c == 'g') {
-                        CurrentMenu = "ShowSchoolDetails";
+                        CurrentMenu = "Show School Details";
                     } else if (c == 'H' || c == 'h') {
                         CurrentMenu = "Exit";
                     } else {
@@ -218,7 +217,7 @@ public class SchoolManagement {
 
                         }
                     }
-
+                    CurrentMenu = "Student";
 
                 } else if (CurrentMenu.equals("Show Student Details")) {
                     System.out.println("Please enter Student ID to show student details");
@@ -230,6 +229,7 @@ public class SchoolManagement {
                     } else{
                         System.out.println("Student not found");
                     }
+                    CurrentMenu = "Student";
                 } else if (CurrentMenu.equals("Pay Fees")) {
                     System.out.println("Please enter Student ID to pay fees");
                     String studentId = user.nextLine();
@@ -239,7 +239,7 @@ public class SchoolManagement {
                     }else{
                         System.out.println("Student not found");
                     }
-
+                    CurrentMenu = "Student";
 
                 } else if (CurrentMenu.equals("Employee")) {
                     System.out.println("---------Employee Menu---------");
@@ -284,6 +284,7 @@ public class SchoolManagement {
                     }else{
                         System.out.println("Teacher not found");
                     }
+                    CurrentMenu = "Teacher";
                 }
                 else if (CurrentMenu.equals("Receive Salary")) {
                     System.out.println("Please enter Employee ID to receive salary");
@@ -294,6 +295,7 @@ public class SchoolManagement {
                     }else{
                         System.out.println("Employee not found");
                     }
+                    CurrentMenu = "Employee";
 
                 }
 
@@ -321,6 +323,7 @@ public class SchoolManagement {
                     if(e!=null){
                         e.EmployeeDetails();
                     }
+                    CurrentMenu = "Support";
                 }
                 else if (CurrentMenu.equals("Class")) {
                     System.out.println("---------Class Menu---------");
@@ -349,7 +352,9 @@ public class SchoolManagement {
                     System.out.println("Please enter Class ID to add student");
                     String classId = user.nextLine();
                     Classroom c = findClassById(classId);
-                    c.addStudent(s);
+                    if (s != null && c != null) c.addStudent(s);
+
+                    CurrentMenu = "Class";
                 } else if (CurrentMenu.equals("Assign Teacher")) {
                     System.out.println("Please enter Teacher ID to assign teacher");
                     String teacherId = user.nextLine();
@@ -357,13 +362,15 @@ public class SchoolManagement {
                     System.out.println("Please enter Class ID to assign teacher");
                     String classId = user.nextLine();
                     Classroom c = findClassById(classId);
-                    c.AssignTeacher(t);
+                    if(t != null && c!=null) c.AssignTeacher(t);
+                    CurrentMenu = "Class";
                 } else if (CurrentMenu.equals("Show Details")) {
                     System.out.println("Please enter Class ID to Show Details");
                     String ClassID = user.nextLine();
                     Classroom C = findClassById(ClassID);
-                    C.ClassDetails();
-                } else if (CurrentMenu.equals("NoticeBoard")) {
+                    if(C != null) C.ClassDetails();
+                    CurrentMenu = "Class";
+                } else if (CurrentMenu.equals("Notice Board")) {
                     System.out.println("---------NoticeBoard Menu---------");
                     System.out.println("Choose an option: ");
                     System.out.println("A- Display");
@@ -380,7 +387,14 @@ public class SchoolManagement {
                     }
 
                 } else if (CurrentMenu.equals("Display")) {
+                    noticeBoard.display();
+
+                    CurrentMenu = "NoticeBoard";
                 } else if (CurrentMenu.equals("Add Content")) {
+                    System.out.println("Please enter Content to add it");
+                    String content = user.nextLine();
+                    noticeBoard.addContent(content);
+                    CurrentMenu = "NoticeBoard";
                 } else if (CurrentMenu.equals("Auditorium")) {
                     System.out.println("---------Auditorium Menu---------");
                     System.out.println("Choose an option: ");
@@ -395,14 +409,32 @@ public class SchoolManagement {
                     } else if (c1 == 'B' || c1=='b') {
                         CurrentMenu = "Show Event Details";
                     } else if (c1 == 'C' || c1=='c') {
-                        CurrentMenu = "Show Seats";
+                        CurrentMenu = "Show Seats1";
                     } else if (c1 == 'D' || c1=='d') {
                         CurrentMenu = "main";
                     }
                 } else if (CurrentMenu.equals("Book Auditorium")) {
-                } else if (CurrentMenu.equals("Show Event")) {
-                } else if (CurrentMenu.equals("Show Seats")) {
-                } else if (CurrentMenu.equals("ShowSchoolDetails")) {
+                    System.out.println("Please enter event Name");
+                    String eventName = user.nextLine();
+                    System.out.println("Please enter event time");
+                    String eventTime = user.nextLine();
+                    System.out.println("Please enter event date");
+                    String eventDate = user.nextLine();
+                    System.out.println("Please enter Seats Occupied ");
+                    int SeatsOccupied = user.nextInt();
+                    user.nextLine();
+                    auditorium.BookAuditorium(SeatsOccupied, eventName, eventDate, eventTime);
+                    CurrentMenu = "Auditorium";
+                } else if (CurrentMenu.equals("Show Event Details")) {
+                    auditorium.EventDetails();
+                    CurrentMenu = "Auditorium";
+                } else if (CurrentMenu.equals("Show Seats1")) {
+                    auditorium.DisplaySeats();
+                    CurrentMenu = "Auditorium";
+                } else if (CurrentMenu.equals("Show School Details")) {
+                    this.ShowSchoolDetails();
+
+                    CurrentMenu = "main";
                 } else if (CurrentMenu.equals("Exit")) {
                     b = false;
                 }
@@ -415,6 +447,22 @@ public class SchoolManagement {
         }
 
     }
+
+    void ShowSchoolDetails() {
+        System.out.println("-------School Details---------");
+        String schoolName = this.SchoolName;
+        System.out.println("School Name: \n" + schoolName);
+        String schoolAddress = this.Address;
+        System.out.println("School Address: \n" + schoolAddress);
+        String mediumOfStudy = this.MediumOfStudy;
+        System.out.println("Medium Of Study: \n" + mediumOfStudy);
+        String ContactNumber = this.ContactNumber;
+        System.out.println("Contact Number: \n" + ContactNumber);
+
+    }
+
+
+    // Getters
     private Student findStudentById(String id) {
         for (Student s : students) {
             if (s.getStudentId().equalsIgnoreCase(id)) {
@@ -450,12 +498,6 @@ public class SchoolManagement {
         }
         return null;
     }
-    void SetTeacherList(ArrayList<Teacher>Teachers){
-        this.Teachers = Teachers;
-    }
-    void SetSupList(ArrayList<SupportStaff>SupportStaffs){
-        this.SupportStaffs = SupportStaffs;
-    }
     Teacher findTeacherById(String id) {
         for(Teacher t: Teachers){
             if(t.getEmployeeId().equalsIgnoreCase(id)) {
@@ -464,6 +506,44 @@ public class SchoolManagement {
 
         }
         return null;
+    }
+
+
+    // Setters
+    void SetTeacherList(ArrayList<Teacher>Teachers){
+        this.Teachers = Teachers;
+    }
+    void SetSupList(ArrayList<SupportStaff>SupportStaffs){
+        this.SupportStaffs = SupportStaffs;
+    }
+
+    void SetClassrooms(ArrayList<Classroom>Classrooms){
+        this.classrooms = Classrooms;
+    }
+    void SetLabs(ArrayList<Lab>Labs){
+        this.labs = Labs;
+    }
+    void SetEmployers(ArrayList<Employee>Employers){
+        this.employees = Employers;
+    }
+    void SetPlayground(Playground Playground){
+        this.playground = Playground;
+    }
+    void SetAuditorium(Auditorium auditorium){
+        this.auditorium = auditorium;
+    }
+    void SetNoticeBoard(NoticeBoard noticeBoard){
+        this.noticeBoard = noticeBoard;
+
+    }
+    void AddDepartment(Department department){
+        departments.add(department);
+    }
+    void AddClassroom(Classroom classroom){
+        classrooms.add(classroom);
+    }
+    void AddLabRoom(Lab lab){
+        labs.add(lab);
     }
 
 

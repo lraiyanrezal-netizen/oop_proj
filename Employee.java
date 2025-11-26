@@ -1,10 +1,12 @@
-
+import java.util.ArrayList;
 
 public abstract class Employee {
     String EmployeeId;
     String EmployeeName;
     double Salary;
     String DepartmentId;
+    // ------------------------------------------------------------------ Aggregation
+    ArrayList<Student> Students;
 
     boolean isReceivedSalary = false;
 

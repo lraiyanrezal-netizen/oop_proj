@@ -1,11 +1,12 @@
 import java.util.ArrayList;
 
 public class NoticeBoard {
-    private ArrayList<String> newsList;
-    private String inchargeName;
+    ArrayList<String> newsList;
+    String InchargeName;
 
-    public NoticeBoard(String inchargeName) {
-        this.inchargeName = inchargeName;
+    public NoticeBoard(){}
+    public NoticeBoard(String InchargeName) {
+        this.InchargeName = InchargeName;
         this.newsList = new ArrayList<>();
     }
 
